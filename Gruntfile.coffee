@@ -10,7 +10,10 @@ module.exports = (grunt) ->
         tasks: ["copy"]
 
     clean:
-      ["dist/"]
+      default:
+        ["dist/"]
+      release:
+        ["dist/js/*.js", "!dist/js/mortgage.min.js"]
 
     copy:
       default:
@@ -34,27 +37,6 @@ module.exports = (grunt) ->
             dest: "dist/"
           }
         ]
-      release:
-        files: [
-          {
-            expand: true
-            cwd: "src/"
-            src: ["lib/*.js", "css/*.css", "img/*.png"]
-            dest: "dist/"
-          }
-          {
-            expand: true
-            flatten: true
-            src: ["src/html/*.html"]
-            dest: "dist/"
-          }
-          {
-            expand: true
-            flatten: true
-            src: ["src/img/*.ico"]
-            dest: "dist/"
-          }
-        ]
 
     jasmine:
       src: ["dist/lib/*.js", "dist/js/*.js"]
@@ -62,13 +44,14 @@ module.exports = (grunt) ->
         specs: "src/spec/*.spec.js"
         keepRunner: true
 
-    uglify: {
-      default: {
-        files: {
+    uglify:
+      default:
+        files:
           'dist/js/mortgage.min.js': ['src/js/*.js']
-        }
-      }
-    }
+
+    useref:
+      html: 'dist/index.html'
+      temp: 'dist'
         
 
   grunt.loadNpmTasks "grunt-contrib-watch"
@@ -76,7 +59,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-clean"
   grunt.loadNpmTasks "grunt-contrib-jasmine"
   grunt.loadNpmTasks "grunt-contrib-uglify"
+  grunt.loadNpmTasks "grunt-useref"
 
   grunt.registerTask "default", ["clean", "copy", "jasmine"]
   grunt.registerTask "test", ["jasmine"]
-  grunt.registerTask "release", ["clean", "copy:release", "uglify", "jasmine"]
+  grunt.registerTask "release", ["clean", "copy", "jasmine", "uglify", "useref", "clean:release"]
