@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mortgage Calculator</title>
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/mortgage.style.css">
+        <script type="text/javascript" src="lib/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="lib/knockout-3.0.0.js"></script>
+        <script type="text/javascript" src="lib/d3.v3.min.js"></script>
+        <script type="text/javascript" src="js/mortgage.js"></script>
+        <script type="text/javascript" src="js/kobindings.js"></script>
+        <script type="text/javascript" src="js/charts.js"></script>
+        <script type="text/javascript" src="js/boot.js"></script>
+    </head>
+    <body>
+        <div class="striped">
+            <div class="container">
+                <div class="col-sm-8 col-md-8">
+                    <h1>Mortgage Calculator</h1>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <label>Mortgage Amount</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">£</span>
+                        <input class="form-control" type="text" placeholder="Amount" data-bind="value: amount" />
+                    </div>
+                    <label>Monthly Overpayment</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">£</span>
+                        <input class="form-control" type="text" placeholder="Overpayment" data-bind="value: overpayment" />
+                    </div>
+                    <label>Interest Rate</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Rate" data-bind="value: rate" />
+                        <span class="input-group-addon">%</span>
+                    </div>
+                    <label>Repayment Period</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Period" data-bind="value: period" />
+                        <span class="input-group-addon">Years</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-success pull-right" data-bind="click: calculate">Calculate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-bind="visible: schedule().length">
+            <hr/>
+            <div class="container pie-labels">
+                <div class="col-sm-4 col-md-4 col-sm-offset-1 col-md-offset-1">
+                    <h2>Summary</h2>
+                    <table class="table table-striped summary-table">
+                        <tbody>
+                            <tr>
+                                <td>Monthly Payment</td>
+                                <td data-bind="currency: monthlyPayment"></td>
+                            </tr>
+                            <tr>
+                                <td>Total Interest</td>
+                                <td data-bind="currency: cumulativeInterest"></td>
+                            </tr>
+                            <tr>
+                                <td>Total Payments</td>
+                                <td data-bind="currency: cumulativePayment"></td>
+                            </tr>
+                            <tr>
+                                <td>Total Overpayment</td>
+                                <td data-bind="currency: cumulativeOverpayment"></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td  data-bind="currency: total"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6 col-md-6 col-sm-offset-1 col-md-offset-1">
+                    <div class="row">
+                        <h2>Interest vs Payments</h2>
+                        <div class="col-sm-8 col-md-8">
+                            <div id="interest" class="pie-chart"></div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 pie-chart-keys">
+                            <div class="pie-chart-key">
+                                <span class="one"></span>
+                                Interest
+                            </div>
+                            <div class="pie-chart-key">
+                                <span class="two"></span>
+                                Repayments
+                            </div>
+                            <div class="pie-chart-key">
+                                <span class="three"></span>
+                                Over payments
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-10 col-md-10">
+                            <div class="alert alert-info">
+                                By overpaying your mortgage by
+                                <strong data-bind="currency: overpayment"></strong>
+                                a month you will save
+                                <strong data-bind="currency: interestSavings"></strong>
+                                in interest payments
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="container">
+                <div class="col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>Month</th>
+                            <th>Interest</th>
+                            <th>Payment</th>
+                            <th>Overpayment</th>
+                            <th>Balance</th>
+                        </thead>
+                        <tbody data-bind="foreach: schedule">
+                            <tr>
+                                <td data-bind="text: month"></td>
+                                <td data-bind="currency: interest"></td>
+                                <td data-bind="currency: payment"></td>
+                                <td data-bind="currency: overpayment"></td>
+                                <td data-bind="currency: balance"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

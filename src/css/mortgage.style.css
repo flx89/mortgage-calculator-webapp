@@ -1,0 +1,100 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    font-size: 60px;
+}
+
+.striped {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background-image: url(../img/background.png);
+    background-position: left bottom;
+    height: 380px;
+}
+
+.striped h1, .striped label {
+    color: #E6E6E6;
+}
+
+.striped .container > div {
+    padding: 25px;
+}
+
+.striped .container label {
+    margin-top: 5px;
+}
+
+.striped .container button {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+    .striped {
+        height: 625px;
+    }
+}
+
+.pie-chart {
+    height: 150px;
+    margin-bottom: 40px;
+}
+
+.pie-chart path {
+    stroke: #FFF;
+    stroke-width: 3;
+}
+
+.pie-chart path.one {
+    fill: #0D4AE4;
+}
+
+.pie-chart-key span.one {
+    background-color: #0D4AE4;   
+}
+
+.pie-chart path.two {
+    fill: #5B9CE5;
+}
+
+.pie-chart-key span.two {
+    background-color: #5B9CE5;
+}
+
+.pie-chart path.three {
+    fill: #A8EEE6;
+}
+
+.pie-chart-keys {
+    margin-top: 40px;
+}
+
+.pie-chart-key span.three {
+    background-color: #A8EEE6;
+}
+
+.pie-chart-key {
+    vertical-align: top;
+}
+
+.pie-chart-key span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.pie-chart-key span.one,
+.pie-chart-key span.two,
+.pie-chart-key span.three {
+    border-radius: 10px;
+}
+
+.pie-labels label {
+    height: 60px;
+}
+
+.summary-table {
+    margin-top: 30px;
+}
